@@ -30,7 +30,7 @@
 	});
 	
 	function updateStatusCallback(response) {
-		alert('testing');
+	//	alert('testing');
 		if (response.status === 'connected') {
 		    // the user is logged in and has authenticated your
 		    // app, and response.authResponse supplies
