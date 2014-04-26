@@ -9,7 +9,7 @@ public class DataManager {
 
 	private static final String connect_string = "jdbc:oracle:thin:ayi/columbia@//ayidbinstance.cmwcsrjrhfvr.us-east-1.rds.amazonaws.com:1521/AYIDB";
 	
-	private static ArrayList<Event> getEvents(String email) throws SQLException {
+	public static ArrayList<Event> getEvents(String email) throws SQLException {
 		ArrayList<Event> events = new ArrayList<Event>();
 		Connection conn = null;
 		
@@ -59,7 +59,7 @@ public class DataManager {
 		return events;
 	}
 	
-	private static ArrayList<Event> getHostingEvents(String email) throws SQLException {
+	public static ArrayList<Event> getHostingEvents(String email) throws SQLException {
 		ArrayList<Event> events = new ArrayList<Event>();
 		Connection conn = null;
 		
@@ -110,7 +110,7 @@ public class DataManager {
 		return events;
 	}
 	
-	private static ArrayList<Event> getInvitedEvents(String email) throws SQLException {
+	public static ArrayList<Event> getInvitedEvents(String email) throws SQLException {
 		ArrayList<Event> events = new ArrayList<Event>();
 		Connection conn = null;
 		
