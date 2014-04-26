@@ -6,7 +6,7 @@
 <body>
 <h1>Welcome to Are you Interested?</h1>
 <h2>Work in Progress</h2>
-<script src="js/jquery-2.1.0.js"></script>
+<script src="jquery/jquery-2.1.0.js"></script>
 <script>
 	$( document ).ready(function() {
 		
