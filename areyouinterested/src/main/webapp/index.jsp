@@ -1,13 +1,22 @@
+<%@ page import="edu.columbia.dao.DataManager" %>
+
 <html>
 <head>
 <meta charset="utf-8" />
 <title>Demo</title>
+<script>
+
+</script>
 </head>
 <body>
 <h1>Welcome to Are you Interested?</h1>
 <h2>Work in Progress</h2>
+
 <script src="js/jquery-2.1.0.js"></script>
 <script>
+
+	
+	
 	$( document ).ready(function() {
 		
 		$.ajaxSetup({ cache: true });
@@ -32,6 +41,9 @@
 		    var uid = response.authResponse.userID;
 		    var accessToken = response.authResponse.accessToken;
 		    alert('Welcome to Facebook ' +uid);
+		    
+		    getFriends();
+
 		  } else if (response.status === 'not_authorized') {
 		    // the user is logged in to Facebook, 
 		    // but has not authenticated your app
@@ -40,6 +52,18 @@
 		    // the user isn't logged in to Facebook.
 		    alert('Please login to Facebook');
 		  }
+	}
+	
+	function getFriends() {
+	    FB.api('/me/friends', function(response) {
+	        if(response.data) {
+	            $.each(response.data,function(index,friend) {
+	                alert(friend.name + ' has id:' + friend.id);
+	            });
+	        } else {
+	            alert("Error!");
+	        }
+	    });
 	}
 	
 	window.fbAsyncInit
