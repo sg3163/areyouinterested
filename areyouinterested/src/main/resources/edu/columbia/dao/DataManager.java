@@ -27,31 +27,28 @@ public class DataManager {
 			ResultSet rs = stmt.executeQuery(sql);
 			
 			while (rs.next()) {
-				
 				Event event = new Event(Integer.parseInt(rs.getString("Event_ID")), rs.getString("Event_Type"), rs.getString("Title"), rs.getString("Location"), rs.getString("Date_Time"), rs.getString("Description"), "");
+				events.add(event);
+			}
 			
+			for (Event event : events) {
 				sql = "SELECT u.Usr_ID, u.Email, u.First_Name, u.Last_Name, x.Status " +
 					  "FROM Usr u " +
 					  "  INNER JOIN Usr_Event x ON u.Usr_ID = x.Usr_ID " +
-					  "WHERE x.Event_ID = 21";
+					  "WHERE x.Event_ID = " + event.getID();
 				
+				rs = stmt.executeQuery(sql);
 				
-				ResultSet rs1 = stmt.executeQuery(sql);
-				/*
-				
-				while (rs1.next()) {
-					if (rs1.getString("Status").trim().equalsIgnoreCase("H")) {
-						User host = new User(Integer.parseInt(rs1.getString("Usr_ID")), rs1.getString("Email"), rs1.getString("First_Name"), rs1.getString("Last_Name"), "");
+				while (rs.next()) {
+					if (rs.getString("Status").trim().equalsIgnoreCase("H")) {
+						User host = new User(Integer.parseInt(rs.getString("Usr_ID")), rs.getString("Email"), rs.getString("First_Name"), rs.getString("Last_Name"), "");
 						event.setHost(host);
 					}
 					else {
-						Invitee invitee = new Invitee(Integer.parseInt(rs1.getString("Usr_ID")), rs1.getString("Email"), rs1.getString("First_Name"), rs1.getString("Last_Name"), rs1.getString("Status"), "");
+						Invitee invitee = new Invitee(Integer.parseInt(rs.getString("Usr_ID")), rs.getString("Email"), rs.getString("First_Name"), rs.getString("Last_Name"), rs.getString("Status"), "");
 						event.addInvitee(invitee);
 					}
 				}
-				*/
-				
-				events.add(event);
 			}
 		}
 		catch (SQLException e) {
@@ -81,28 +78,32 @@ public class DataManager {
 						 "  INNER JOIN Event e ON x.Event_ID = e.Event_ID " +
 						 "WHERE u.Email = '" + email + "' " +
 						 "  AND x.Status = 'H'";
+			
 			ResultSet rs = stmt.executeQuery(sql);
+			
 			while (rs.next()) {
 				Event event = new Event(Integer.parseInt(rs.getString("Event_ID")), rs.getString("Event_Type"), rs.getString("Title"), rs.getString("Location"), rs.getString("Date_Time"), rs.getString("Description"), "");
-				
+				events.add(event);
+			}
+			
+			for (Event event : events) {
 				sql = "SELECT u.Usr_ID, u.Email, u.First_Name, u.Last_Name, x.Status " +
 					  "FROM Usr u " +
 					  "  INNER JOIN Usr_Event x ON u.Usr_ID = x.Usr_ID " +
 					  "WHERE x.Event_ID = " + event.getID();
 				
-				ResultSet rs1 = stmt.executeQuery(sql);
-				while (rs1.next()) {
-					if (rs1.getString("Status").trim().equalsIgnoreCase("H")) {
-						User host = new User(Integer.parseInt(rs1.getString("Usr_ID")), rs1.getString("Email"), rs1.getString("First_Name"), rs1.getString("Last_Name"), "");
+				rs = stmt.executeQuery(sql);
+				
+				while (rs.next()) {
+					if (rs.getString("Status").trim().equalsIgnoreCase("H")) {
+						User host = new User(Integer.parseInt(rs.getString("Usr_ID")), rs.getString("Email"), rs.getString("First_Name"), rs.getString("Last_Name"), "");
 						event.setHost(host);
 					}
 					else {
-						Invitee invitee = new Invitee(Integer.parseInt(rs1.getString("Usr_ID")), rs1.getString("Email"), rs1.getString("First_Name"), rs1.getString("Last_Name"), rs1.getString("Status"), "");
+						Invitee invitee = new Invitee(Integer.parseInt(rs.getString("Usr_ID")), rs.getString("Email"), rs.getString("First_Name"), rs.getString("Last_Name"), rs.getString("Status"), "");
 						event.addInvitee(invitee);
 					}
 				}
-				
-				events.add(event);
 			}
 		}
 		catch (SQLException e) {
@@ -132,28 +133,32 @@ public class DataManager {
 						 "  INNER JOIN Event e ON x.Event_ID = e.Event_ID " +
 						 "WHERE u.Email = '" + email + "' " +
 						 "  AND x.Status != 'H'";
+			
 			ResultSet rs = stmt.executeQuery(sql);
+			
 			while (rs.next()) {
 				Event event = new Event(Integer.parseInt(rs.getString("Event_ID")), rs.getString("Event_Type"), rs.getString("Title"), rs.getString("Location"), rs.getString("Date_Time"), rs.getString("Description"), "");
-				
+				events.add(event);
+			}
+			
+			for (Event event : events) {
 				sql = "SELECT u.Usr_ID, u.Email, u.First_Name, u.Last_Name, x.Status " +
 					  "FROM Usr u " +
 					  "  INNER JOIN Usr_Event x ON u.Usr_ID = x.Usr_ID " +
 					  "WHERE x.Event_ID = " + event.getID();
 				
-				ResultSet rs1 = stmt.executeQuery(sql);
-				while (rs1.next()) {
-					if (rs1.getString("Status").trim().equalsIgnoreCase("H")) {
-						User host = new User(Integer.parseInt(rs1.getString("Usr_ID")), rs1.getString("Email"), rs1.getString("First_Name"), rs1.getString("Last_Name"), "");
+				rs = stmt.executeQuery(sql);
+				
+				while (rs.next()) {
+					if (rs.getString("Status").trim().equalsIgnoreCase("H")) {
+						User host = new User(Integer.parseInt(rs.getString("Usr_ID")), rs.getString("Email"), rs.getString("First_Name"), rs.getString("Last_Name"), "");
 						event.setHost(host);
 					}
 					else {
-						Invitee invitee = new Invitee(Integer.parseInt(rs1.getString("Usr_ID")), rs1.getString("Email"), rs1.getString("First_Name"), rs1.getString("Last_Name"), rs1.getString("Status"), "");
+						Invitee invitee = new Invitee(Integer.parseInt(rs.getString("Usr_ID")), rs.getString("Email"), rs.getString("First_Name"), rs.getString("Last_Name"), rs.getString("Status"), "");
 						event.addInvitee(invitee);
 					}
 				}
-				
-				events.add(event);
 			}
 		}
 		catch (SQLException e) {
