@@ -1,4 +1,7 @@
 <%@ page import="edu.columbia.dao.DataManager" %>
+<%@ page import="edu.columbia.vo.Event" %>
+<%@ page import="java.util.ArrayList" %>
+
 
 <html>
 <head>
@@ -42,7 +45,16 @@
 		    var accessToken = response.authResponse.accessToken;
 		    alert('Welcome to Facebook ' +uid);
 		    
-		    getFriends();
+		    // get facebook friends
+		    FacebookClient facebookClient = new DefaultFacebookClient(accessToken);
+		    Connection friends = facebookClient.fetchConnection("me/friends", User.class);
+		    String friends = "";
+		   	
+		    for (User user : friends.getData()) {
+		    	friends += user.getId() + ": " + user.getName() + ", ";
+		    }
+		    
+		    alert(friends);
 
 		  } else if (response.status === 'not_authorized') {
 		    // the user is logged in to Facebook, 
