@@ -53,7 +53,6 @@
 		    alert('Welcome to Facebook ' +uid);
 		    
 		    getFriends();
-<<<<<<< HEAD
 		    
 		    // get facebook friends
 		    FacebookClient facebookClient = new DefaultFacebookClient(accessToken);
@@ -65,8 +64,6 @@
 		    }
 		    
 		    alert(friends);
-=======
->>>>>>> FETCH_HEAD
 
 		  } else if (response.status === 'not_authorized') {
 		    // the user is logged in to Facebook, 
