@@ -1,0 +1,31 @@
+html {
+	background-image: url("purple.jpg");
+}
+
+body {
+	background-image: url("purple.jpg");
+}
+
+h3 {
+	padding-top: 0;
+	padding-bottom: 5;
+	font-weight: normal;
+}
+
+.button-class {
+	background-color: #428bca;
+	font-weight: bold;
+	font-stretch: expanded;
+	text-align:center;
+	border-spacing: 2;
+	color: white;
+}
+
+.button-class:hover,
+.button-class:focus {
+  background-color: #3071a9;
+}
+
+.fieldheader {
+	font-weight:bold;
+}

@@ -1,7 +1,10 @@
 <%@ page import="edu.columbia.dao.DataManager" %>
+<<<<<<< HEAD
 <%@ page import="edu.columbia.vo.Event" %>
 <%@ page import="java.util.ArrayList" %>
 
+=======
+>>>>>>> FETCH_HEAD
 
 <html>
 <head>
@@ -14,8 +17,12 @@
 <body>
 <h1>Welcome to Are you Interested?</h1>
 <h2>Work in Progress</h2>
+<<<<<<< HEAD
 
 <script src="js/jquery-2.1.0.js"></script>
+=======
+<script src="jquery/jquery-2.1.0.js"></script>
+>>>>>>> FETCH_HEAD
 <script>
 
 	
@@ -34,7 +41,7 @@
 	});
 	
 	function updateStatusCallback(response) {
-		alert('testing');
+	//	alert('testing');
 		if (response.status === 'connected') {
 		    // the user is logged in and has authenticated your
 		    // app, and response.authResponse supplies
@@ -46,6 +53,7 @@
 		    alert('Welcome to Facebook ' +uid);
 		    
 		    getFriends();
+<<<<<<< HEAD
 		    
 		    // get facebook friends
 		    FacebookClient facebookClient = new DefaultFacebookClient(accessToken);
@@ -57,6 +65,8 @@
 		    }
 		    
 		    alert(friends);
+=======
+>>>>>>> FETCH_HEAD
 
 		  } else if (response.status === 'not_authorized') {
 		    // the user is logged in to Facebook, 
