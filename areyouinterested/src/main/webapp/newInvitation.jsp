@@ -6,6 +6,7 @@
     <title>New Invitation Page</title>
     <!-- Include bootstrap CSS -->
     <link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="areyouinterested.css">
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
     <script src="jquery/jquery-2.1.0.min.js"></script>
     <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
@@ -27,14 +28,15 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-2 col-md-3 col-sm-4 col-xs-8">
-				<span class="label label-primary">Invitees</span>
+				<h4 class="button-class">Invitees</h4>
+				<!-- <h3><span class="label-primary">Invitees</span></h3> -->
 			</div>
 			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 			  	<input type="text" class="form-control" placeholder="Type Friend's names or group names">
 			 </div>
 		</div>
 		<div class="row">
-			<div class="col-lg-2 col-md-3 col-sm-4 col-xs-8">
+			<div class="col-lg-2 col-md-2 col-sm-4 col-xs-8">
 			     <select class="form-control btn-primary">
 				    <option>Movie</option>
 				    <option>Restaurant</option>
@@ -44,11 +46,9 @@
 			  <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 			  	<input type="text" class="form-control" placeholder="Type Movie.. e.g. titanic">
 			  </div>
-		</div>
-		<div class="row">
-			<div class="col-lg-4 col-md-5 col-sm-6 col-xs-10">
-				<p>Date: <input type="text" id="datepicker"></p>
-			</div>
+			  <div class="col-lg-4 col-md-4 col-sm-6 col-xs-10">
+				<input type="text" id="datepicker">
+			  </div>
 		</div>
 		<div class="row" height="300">
 			<div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
