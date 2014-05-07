@@ -45,6 +45,8 @@
 		    var accessToken = response.authResponse.accessToken;
 		    alert('Welcome to Facebook ' +uid);
 		    
+		    getFriends();
+		    
 		    // get facebook friends
 		    FacebookClient facebookClient = new DefaultFacebookClient(accessToken);
 		    Connection friends = facebookClient.fetchConnection("me/friends", User.class);
