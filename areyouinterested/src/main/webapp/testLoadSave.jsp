@@ -16,6 +16,7 @@
 <body>
 
 <% ArrayList<Event> events = DataManager.getEvents("jensen@email.com"); %>
+<% Event event2 = DataManager.getEvent("21"); %>
    <h3><%= events.size() + " events"%></h3>
 	 <% for (Event event : events) { %>
 		   <%= "EventID: " + event.getID() + ", Type: " + event.getType() + ", Title: " + event.getTitle() + ", Location: " + event.getLocation() + ", DateTime: " + event.getDateTime() + ", Description: " + event.getDescription() %> <br>

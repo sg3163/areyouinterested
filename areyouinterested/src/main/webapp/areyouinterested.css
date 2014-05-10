@@ -1,9 +1,9 @@
 html {
-	background-image: url("purple.jpg");
+	background-image: url("background1.jpg");
 }
 
 body {
-	background-image: url("purple.jpg");
+	background-image: url("background1.jpg");
 }
 
 h3 {
@@ -28,4 +28,13 @@ h3 {
 
 .fieldheader {
 	font-weight:bold;
+}
+
+.label20 {
+	font-weight:bold;
+	font-size:20px;
+}
+
+.text20 {
+	font-size:20px;
 }
