@@ -27,7 +27,7 @@ public class DataManager {
 			ResultSet rs = stmt.executeQuery(sql);
 			
 			while (rs.next()) {
-				Event event = new Event(Integer.parseInt(rs.getString("Event_ID")), rs.getString("Event_Type"), rs.getString("Title"), rs.getString("Location"), rs.getString("Date_Time"), rs.getString("Description"), "");
+				Event event = new Event(Integer.parseInt(rs.getString("Event_ID").trim()), rs.getString("Event_Type").trim(), rs.getString("Title").trim(), rs.getString("Location").trim(), rs.getString("Date_Time").trim(), rs.getString("Description").trim(), "");
 				events.add(event);
 			}
 			
@@ -41,11 +41,11 @@ public class DataManager {
 				
 				while (rs.next()) {
 					if (rs.getString("Status").trim().equalsIgnoreCase("H")) {
-						User host = new User(Integer.parseInt(rs.getString("Usr_ID")), rs.getString("Email"), rs.getString("First_Name"), rs.getString("Last_Name"), "");
+						User host = new User(Integer.parseInt(rs.getString("Usr_ID").trim()), rs.getString("Email").trim(), rs.getString("First_Name").trim(), rs.getString("Last_Name").trim(), "");
 						event.setHost(host);
 					}
 					else {
-						Invitee invitee = new Invitee(Integer.parseInt(rs.getString("Usr_ID")), rs.getString("Email"), rs.getString("First_Name"), rs.getString("Last_Name"), rs.getString("Status"), "");
+						Invitee invitee = new Invitee(Integer.parseInt(rs.getString("Usr_ID").trim()), rs.getString("Email").trim(), rs.getString("First_Name").trim(), rs.getString("Last_Name").trim(), rs.getString("Status").trim(), "");
 						event.addInvitee(invitee);
 					}
 				}
@@ -82,7 +82,7 @@ public class DataManager {
 			ResultSet rs = stmt.executeQuery(sql);
 			
 			while (rs.next()) {
-				Event event = new Event(Integer.parseInt(rs.getString("Event_ID")), rs.getString("Event_Type"), rs.getString("Title"), rs.getString("Location"), rs.getString("Date_Time"), rs.getString("Description"), "");
+				Event event = new Event(Integer.parseInt(rs.getString("Event_ID").trim()), rs.getString("Event_Type").trim(), rs.getString("Title").trim(), rs.getString("Location").trim(), rs.getString("Date_Time").trim(), rs.getString("Description").trim(), "");
 				events.add(event);
 			}
 			
@@ -96,11 +96,11 @@ public class DataManager {
 				
 				while (rs.next()) {
 					if (rs.getString("Status").trim().equalsIgnoreCase("H")) {
-						User host = new User(Integer.parseInt(rs.getString("Usr_ID")), rs.getString("Email"), rs.getString("First_Name"), rs.getString("Last_Name"), "");
+						User host = new User(Integer.parseInt(rs.getString("Usr_ID").trim()), rs.getString("Email").trim(), rs.getString("First_Name").trim(), rs.getString("Last_Name").trim(), "");
 						event.setHost(host);
 					}
 					else {
-						Invitee invitee = new Invitee(Integer.parseInt(rs.getString("Usr_ID")), rs.getString("Email"), rs.getString("First_Name"), rs.getString("Last_Name"), rs.getString("Status"), "");
+						Invitee invitee = new Invitee(Integer.parseInt(rs.getString("Usr_ID").trim()), rs.getString("Email").trim(), rs.getString("First_Name").trim(), rs.getString("Last_Name").trim(), rs.getString("Status").trim(), "");
 						event.addInvitee(invitee);
 					}
 				}
@@ -137,7 +137,7 @@ public class DataManager {
 			ResultSet rs = stmt.executeQuery(sql);
 			
 			while (rs.next()) {
-				Event event = new Event(Integer.parseInt(rs.getString("Event_ID")), rs.getString("Event_Type"), rs.getString("Title"), rs.getString("Location"), rs.getString("Date_Time"), rs.getString("Description"), "");
+				Event event = new Event(Integer.parseInt(rs.getString("Event_ID").trim()), rs.getString("Event_Type").trim(), rs.getString("Title").trim(), rs.getString("Location").trim(), rs.getString("Date_Time").trim(), rs.getString("Description").trim(), "");
 				events.add(event);
 			}
 			
@@ -151,11 +151,11 @@ public class DataManager {
 				
 				while (rs.next()) {
 					if (rs.getString("Status").trim().equalsIgnoreCase("H")) {
-						User host = new User(Integer.parseInt(rs.getString("Usr_ID")), rs.getString("Email"), rs.getString("First_Name"), rs.getString("Last_Name"), "");
+						User host = new User(Integer.parseInt(rs.getString("Usr_ID").trim()), rs.getString("Email").trim(), rs.getString("First_Name").trim(), rs.getString("Last_Name").trim(), "");
 						event.setHost(host);
 					}
 					else {
-						Invitee invitee = new Invitee(Integer.parseInt(rs.getString("Usr_ID")), rs.getString("Email"), rs.getString("First_Name"), rs.getString("Last_Name"), rs.getString("Status"), "");
+						Invitee invitee = new Invitee(Integer.parseInt(rs.getString("Usr_ID").trim()), rs.getString("Email").trim(), rs.getString("First_Name").trim(), rs.getString("Last_Name").trim(), rs.getString("Status").trim(), "");
 						event.addInvitee(invitee);
 					}
 				}
@@ -171,6 +171,53 @@ public class DataManager {
 		}
 		
 		return events;	
+	}
+	
+	public static Event getEvent(String eventID) throws SQLException {
+		Event event = null;
+		Connection conn = null;
+		
+		try {
+			OracleDataSource ods = new OracleDataSource();
+			ods.setURL(connect_string);
+			conn = ods.getConnection();		
+			Statement stmt = conn.createStatement();
+			String sql = "SELECT e.Event_ID, e.Event_Type, e.Title, e.Location, e.Date_Time, e.Description " +
+						 "FROM Event e " +
+						 "WHERE e.Event_ID = " + eventID;
+			
+			ResultSet rs = stmt.executeQuery(sql);
+			rs.next();
+			event = new Event(Integer.parseInt(rs.getString("Event_ID").trim()), rs.getString("Event_Type").trim(), rs.getString("Title").trim(), rs.getString("Location").trim(), rs.getString("Date_Time").trim(), rs.getString("Description").trim(), "");
+			
+			sql = "SELECT u.Usr_ID, u.Email, u.First_Name, u.Last_Name, x.Status " +
+				  "FROM Usr u " +
+				  "  INNER JOIN Usr_Event x ON u.Usr_ID = x.Usr_ID " +
+				  "WHERE x.Event_ID = " + event.getID();
+			
+			rs = stmt.executeQuery(sql);
+				
+			while (rs.next()) {
+				if (rs.getString("Status").trim().equalsIgnoreCase("H")) {
+					User host = new User(Integer.parseInt(rs.getString("Usr_ID").trim()), rs.getString("Email").trim(), rs.getString("First_Name").trim(), rs.getString("Last_Name").trim(), "");
+					event.setHost(host);
+				}
+				else {
+					Invitee invitee = new Invitee(Integer.parseInt(rs.getString("Usr_ID").trim()), rs.getString("Email").trim(), rs.getString("First_Name").trim(), rs.getString("Last_Name").trim(), rs.getString("Status").trim(), "");
+					event.addInvitee(invitee);
+				}
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally
+		{
+			if (conn != null)
+				conn.close();
+		}
+		
+		return event;	
 	}
 	
 	public void saveEvent(Event event) throws SQLException {
