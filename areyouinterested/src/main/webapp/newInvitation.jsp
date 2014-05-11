@@ -6,6 +6,7 @@
     <title>New Invitation Page</title>
     <!-- Include bootstrap CSS -->
     <link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="selectize/normalize.css">
     <link rel="stylesheet" href="selectize/css/stylesheet.css">
     <link rel="stylesheet" href="areyouinterested.css">
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
@@ -131,7 +132,7 @@
 			  </div>
 			  <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 			<div class="control-group">
-				<input type="text" class="form-control" placeholder="Type Movie.. e.g. titanic">
+				<select id="select-movie" placeholder="Find a movie..."></select>
 			</div>
 			  </div>
 			  <div class="col-lg-4 col-md-4 col-sm-6 col-xs-10">
@@ -152,7 +153,52 @@
 <!-- Include jQuery and bootstrap JS plugins -->
 <script src="bootstrap/dist/js/bootstrap.min.js"></script>
 <script>
-		
-	</script>
+				// <select id="select-movie"></select>
+				$('#select-movie').selectize({
+					theme: 'movies',
+					valueField: 'title',
+					labelField: 'title',
+					searchField: 'title',
+					options: [],
+					create: false,
+					render: {
+						option: function(item, escape) {
+							var actors = [];
+							for (var i = 0, n = item.abridged_cast.length; i < n; i++) {
+								actors.push('<span>' + escape(item.abridged_cast[i].name) + '</span>');
+							}
+
+							return '<div>' +
+								'<img src="' + escape(item.posters.thumbnail) + '" alt="">' +
+								'<span class="title">' +
+									'<span class="name">' + escape(item.title) + '</span>' +
+								'</span>' +
+								'<span class="description">' + escape(item.synopsis || 'No synopsis available at this time.') + '</span>' +
+								'<span class="actors">' + (actors.length ? 'Starring ' + actors.join(', ') : 'Actors unavailable') + '</span>' +
+							'</div>';
+						}
+					},
+					load: function(query, callback) {
+						if (!query.length) return callback();
+						$.ajax({
+							url: 'http://api.rottentomatoes.com/api/public/v1.0/lists/movies/in_theaters.json',
+							type: 'GET',
+							dataType: 'jsonp',
+							data: {
+								q: query,
+								page_limit: 10,
+								apikey: 's6psksgf6nn43x8hqv2yefnb'
+							},
+							error: function() {
+								callback();
+							},
+							success: function(res) {
+								console.log(res.movies);
+								callback(res.movies);
+							}
+						});
+					}
+				});
+				</script>
 </body>
 </html>
