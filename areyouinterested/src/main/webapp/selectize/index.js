@@ -7,10 +7,10 @@ $(function() {
 	var themes = ['default','legacy','bootstrap2','bootstrap3'];
 	$('head').append('<link rel="stylesheet" href="selectize/dist/css/selectize.' + theme + '.css">');
 
-	var $themes = $('<div>').addClass('theme-selector').insertAfter('h1');
+/*	var $themes = $('<div>').addClass('theme-selector').insertAfter('h1');
 	for (var i = 0; i < themes.length; i++) {
 		$themes.append('<a href="?theme=' + themes[i] + '"' + (themes[i] === theme ? ' class="active"' : '') + '>' + themes[i] + '</a>');
-	}
+	}*/
 
 	// display scripts on the page
 	$('script', $wrapper).each(function() {
