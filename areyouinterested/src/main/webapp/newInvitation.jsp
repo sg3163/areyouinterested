@@ -6,8 +6,8 @@
     <title>New Invitation Page</title>
     <!-- Include bootstrap CSS -->
     <link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="areyouinterested.css">
     <link rel="stylesheet" href="selectize/css/stylesheet.css">
+    <link rel="stylesheet" href="areyouinterested.css">
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
     <script src="jquery/jquery-2.1.0.min.js"></script>
     <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
