@@ -65,13 +65,43 @@
 		    FB.api('/me/friends', function(response) {
 		        if(response.data) {
 		            $.each(response.data,function(index,friend) {
-		            	friendsArr[index] = friend.name;
+		            	friendsArr[index] = {name: friend.name};
 		        //        alert(friend.name + ' has id:' + friend.id);
 		            });
+		            initSelectize();
 		        } else {
 		            alert("Error!");
 		        }
 		    });
+		}
+		
+		function initSelectize() {
+			$('#select-to').selectize({
+				persist: false,
+				maxItems: null,
+				valueField: 'name',
+				labelField: 'name',
+				searchField: ['name'],
+				sortField: [
+					{field: 'name', direction: 'asc'}
+				],
+				options: friendsArr,
+				render: {
+					item: function(item, escape) {
+						var name = $.trim(item.name);
+						return '<div>' +
+							(name ? '<span class="name">' + escape(name) + '</span>' : '') /* +
+							(item.email ? '<span class="email">' + escape(item.email) + '</span>' : '') +*/
+						'</div>';
+					},
+					option: function(item, escape) {
+						var name = $.trim(item.name);
+						var label = item.name;
+						var caption = item.name;
+						return '<div><span class="name">' + escape(label) + '</span></div>';
+					}
+				}
+			});
 		}
 		
 		window.fbAsyncInit
@@ -88,7 +118,7 @@
 				<!-- <h3><span class="label-primary">Invitees</span></h3> -->
 			</div>
 			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-			  	<input type="text" class="form-control" placeholder="Type Friend's names or group names">
+			  	<select id="select-to" class="contacts" placeholder="Type Friend's name"></select>
 			 </div>
 		</div>
 		<div class="row">
@@ -101,7 +131,7 @@
 			  </div>
 			  <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 			<div class="control-group">
-				<select id="select-to" class="contacts" placeholder="Type Friend's names"></select>
+				<input type="text" class="form-control" placeholder="Type Movie.. e.g. titanic">
 			</div>
 			  </div>
 			  <div class="col-lg-4 col-md-4 col-sm-6 col-xs-10">
@@ -122,63 +152,7 @@
 <!-- Include jQuery and bootstrap JS plugins -->
 <script src="bootstrap/dist/js/bootstrap.min.js"></script>
 <script>
-		var REGEX_EMAIL = '([a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`{|}~-]+)*@' +
-						  '(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)';
-
-		var formatName = function(item) {
-			return $.trim(item.name);
-		};
-
-		$('#select-to').selectize({
-			persist: false,
-			maxItems: null,
-			valueField: 'name',
-			labelField: 'name',
-			searchField: ['name'],
-			sortField: [
-				{field: 'name', direction: 'asc'}
-			],
-			options: [
-				{name: 'Nikola Tesla'},
-				{name: 'Brian Reavis'},
-				{name: 'Jill Jakka'}
-			],
-			render: {
-				item: function(item, escape) {
-					var name = formatName(item);
-					return '<div>' +
-						(name ? '<span class="name">' + escape(name) + '</span>' : '') /* +
-						(item.email ? '<span class="email">' + escape(item.email) + '</span>' : '') +*/
-					'</div>';
-				},
-				option: function(item, escape) {
-					var name = formatName(item);
-					var label = item.name;
-					var caption = item.name;
-					return '<div><span class="label">' + escape(label) + '</span></div>';
-				}
-			}/*,
-			create: function(input) {
-				if ((new RegExp('^' + REGEX_EMAIL + '$', 'i')).test(input)) {
-					return {email: input};
-				}
-				var match = input.match(new RegExp('^([^<]*)\<' + REGEX_EMAIL + '\>$', 'i'));
-				if (match) {
-					var name       = $.trim(match[1]);
-					var pos_space  = name.indexOf(' ');
-					var first_name = name.substring(0, pos_space);
-					var last_name  = name.substring(pos_space + 1);
-
-					return {
-						email: match[2],
-						first_name: first_name,
-						last_name: last_name
-					};
-				}
-				alert('Invalid email address.');
-				return false;
-			}*/
-		});
+		
 	</script>
 </body>
 </html>
