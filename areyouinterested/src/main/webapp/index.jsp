@@ -14,14 +14,13 @@
 <h1>Welcome to Are you Interested?</h1>
 <h2>Work in Progress</h2>
 
-<script src="js/jquery-2.1.0.js"></script>
 <script src="jquery/jquery-2.1.0.js"></script>
 <script>
 
 	
 	
 	$( document ).ready(function() {
-		
+		alert('testing');
 		$.ajaxSetup({ cache: true });
 		  $.getScript('//connect.facebook.net/en_US/all.js', function(){
 		    FB.init({
@@ -34,7 +33,7 @@
 	});
 	
 	function updateStatusCallback(response) {
-	//	alert('testing');
+		
 		if (response.status === 'connected') {
 		    // the user is logged in and has authenticated your
 		    // app, and response.authResponse supplies
@@ -48,7 +47,7 @@
 		    getFriends();
 		    
 		    // get facebook friends
-		    FacebookClient facebookClient = new DefaultFacebookClient(accessToken);
+		/*    FacebookClient facebookClient = new DefaultFacebookClient(accessToken);
 		    Connection friends = facebookClient.fetchConnection("me/friends", User.class);
 		    String friends = "";
 		   	
@@ -56,7 +55,7 @@
 		    	friends += user.getId() + ": " + user.getName() + ", ";
 		    }
 		    
-		    alert(friends);
+		    alert(friends);*/
 
 		  } else if (response.status === 'not_authorized') {
 		    // the user is logged in to Facebook, 
