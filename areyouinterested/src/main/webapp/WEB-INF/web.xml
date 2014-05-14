@@ -19,4 +19,13 @@
     <url-pattern>/UpdateStatus.do</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+	  <servlet-name>NewInvitationServlet</servlet-name>
+	  <servlet-class>edu.columbia.dao.NewInvitationServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>NewInvitationServlet</servlet-name>
+    <url-pattern>/saveInvitation</url-pattern>
+  </servlet-mapping>
+  
 </web-app>

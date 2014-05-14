@@ -1,6 +1,10 @@
 package edu.columbia.vo;
 
 public class User {
+	
+	public User() {
+		
+	}
 
 	private int id;
 	private String email;

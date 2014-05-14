@@ -36,7 +36,28 @@
 			    FB.getLoginStatus(updateStatusCallback);
 			  });
 			  
+			  $("#sendInviteBtn").click(function() { 
+					$.post("saveInvitation",
+							  {
+							    data:JSON.stringify({"type": "M","title": "testing","user": {"email":"33453535", "firstName":"harsha testing"},"invitees": [{"email":"457456", "firstName":"harsha345"},{"email":"8645", "firstName":"machhha"} ]}),
+							    city:"Duckburg"
+							  },
+							  function(data,status){
+							    alert("Data: " + data + "\nStatus: " + status);
+					});
+				});
+			  
 		});
+		
+	/*	
+		
+		$("#sendInviteBtn").click(function() { 
+			alert("Button Clicked")
+		});*/
+		
+		var userFacebookId = <%=request.getParameter("fbid")%>
+		var firstName = <%=request.getParameter("firstName")%>
+		var LastName = <%=request.getParameter("lastName")%>
 		
 		var friendsArr = [];
 		
@@ -146,7 +167,7 @@
 		</div>
 		<div class="row">
 			<div class="col-lg-2 col-md-3 col-sm-4 col-xs-8">
-				<button type="button" class="btn btn-primary">Send Invite</button>
+				<button id="sendInviteBtn" type="button" class="btn btn-primary">Send Invite</button>
 			</div>
 		</div>
 	</div>

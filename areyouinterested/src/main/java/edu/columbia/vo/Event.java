@@ -14,6 +14,10 @@ public class Event {
 	private ArrayList<Invitee> invitees;
 	private String action;
 	
+	public Event() {
+		
+	}
+	
 	public Event(int id, String type, String title, String location, String dateTime, String description, String action) {
 		this.id = id;
 		this.type = type;

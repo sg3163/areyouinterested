@@ -1,6 +1,10 @@
 package edu.columbia.vo;
 
 public class Invitee extends User {
+	
+	public Invitee() {
+		
+	}
 
 	public String status;  // I, A, R
 	

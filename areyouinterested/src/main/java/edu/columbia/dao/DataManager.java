@@ -220,7 +220,7 @@ public class DataManager {
 		return event;	
 	}
 	
-	public void saveEvent(Event event) throws SQLException {
+	public static void saveEvent(Event event) throws SQLException {
 		Connection conn = null;
 		
 		try {
@@ -318,6 +318,30 @@ public class DataManager {
 				
 				sql = "";
 			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally
+		{
+			if (conn != null)
+				conn.close();
+		}
+	}
+	
+	public static void updateStatus(String userID, String eventID, String status) throws SQLException {
+		Connection conn = null;
+		
+		try {
+			OracleDataSource ods = new OracleDataSource();
+			ods.setURL(connect_string);
+			conn = ods.getConnection();		
+			Statement stmt = conn.createStatement();
+			String sql = "UPDATE USR_EVENT " +
+						 "SET Status = '" + status + "' " +
+						 "WHERE USR_ID = " + userID + " "+
+						 "  AND EVENT_ID = " + eventID;
+			stmt.executeUpdate(sql);
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
