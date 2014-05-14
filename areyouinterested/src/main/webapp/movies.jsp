@@ -31,6 +31,8 @@ JSONArray movies = (JSONArray) json.get("movies");
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="areyouinterested.css">
 <title>AYI-Movies</title>
 </head>
 <body>
@@ -73,7 +75,7 @@ JSONArray movies = (JSONArray) json.get("movies");
 			<div>
 				<%=movie.get("year") %>, <%=movie.get("mpaa_rating") %>, <%=movie.get("runtime") %> min
 			</div>
-			<a href="/">Next</a>
+			<a href="newInvitation.jsp?title=<%=movie.get("title") %>>">Next</a>
 		</div>
 		<%} %>
 	</div>
