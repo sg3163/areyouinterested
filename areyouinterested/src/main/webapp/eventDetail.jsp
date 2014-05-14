@@ -41,6 +41,19 @@ JSONArray movies = (JSONArray) json.get("movies");
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
 <script src="jquery/jquery-2.1.0.min.js"></script>
 <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<SCRIPT LANGUAGE="JavaScript">
+
+	function acceptOnClick()
+  {
+      document.form1.buttonName.value = "accept";
+      form1.submit();
+  }    
+  function rejectOnClick()
+  {
+      document.form1.buttonName.value = "reject";
+      form1.submit();
+  }
+</script>         
 <style type="text/css">
 	.container-fluid .row {
 		margin: 0;
@@ -159,10 +172,32 @@ JSONArray movies = (JSONArray) json.get("movies");
 	for (Invitee invitee : event.getInvitees()) { 
 		if (invitee.getStatus().equalsIgnoreCase("I")) { 
 %>
+<%
+	if (invitee.getEmail().trim().equalsIgnoreCase("jensen@email.com")) {
+%>
+<table cellspacing="0" cellpadding="0" table-width="fixed" width="100%">
+<tr>
+<td>
+<%= invitee.getFirstName() %> <%= invitee.getLastName() %>
+</td>
+<td>
+<FORM action="UpdateStatus.do" NAME="form1" METHOD="POST">
+    <INPUT TYPE="HIDDEN" NAME="buttonName">
+    <input type="hidden" name="UserID" value="<%= invitee.getID() %>">
+    <input type="hidden" name="EventID" value="21">
+    <INPUT TYPE="BUTTON" class="button-class" VALUE="accept" ONCLICK="acceptOnClick()">
+    <INPUT TYPE="BUTTON" class="button-class" VALUE="reject" ONCLICK="rejectOnClick()">
+</FORM>
+</td>
+</tr>
+</table>
+<%
+	}
+	else {
+%>
 <%= invitee.getFirstName() %> <%= invitee.getLastName() %><br>
 <% 
-		}
-	} 
+	}}} 
 %>		
 		</td>
 	</tr>
