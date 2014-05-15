@@ -104,6 +104,6 @@
 		</tr>
 		<%}%>
 	</table>
-	<a href='newInvitation.jsp?email=<%=request.getParameter("email")%>'>Create A New Event</a>
+	<a href='newInvitation.jsp?email=<%=request.getParameter("email")%>&fbid=<%=request.getParameter("fbid")%>&firstName=<%=request.getParameter("name") %>'>Create A New Event</a>
 </body>
 </html>
