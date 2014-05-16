@@ -256,9 +256,8 @@ public class DataManager {
 			sql = "";
 			
 			if (event.getAction().trim().equalsIgnoreCase("A")) {
-				sql = "SELECT TOP 1 e.Event_ID " +
-					  "FROM EVENT e " +
-					  "ORDER BY Event_ID DESC";
+				sql = "SELECT MAX(Event_ID) " +
+					  "FROM EVENT";
 				
 				ResultSet rs = stmt.executeQuery(sql);
 				rs.next();
@@ -268,19 +267,25 @@ public class DataManager {
 			sql = "";
 			
 			if (event.getHost() != null) {
-				sql = "IF NOT EXISTS (SELECT USR_ID FROM USR WHERE EMAIL = '" + event.getHost().getEmail() + "') THEN " +
-					  "  INSERT INTO USR (EMAIL, FIRST_NAME, LAST_NAME) " +
-					  "  VALUES ('" + event.getHost().getEmail() + "', '" + event.getHost().getFirstName() + "', '" + event.getHost().getLastName() + "') " +
-					  "END IF";
+				sql = "SELECT USR_ID " + 
+					  "FROM USR " +
+					  "WHERE EMAIL = '" + event.getHost().getEmail() + "'";
 				
-				stmt.executeUpdate(sql);
+				ResultSet rs = stmt.executeQuery(sql);
+				
+				if (rs.next()) {
+					sql = "INSERT INTO USR (EMAIL, FIRST_NAME, LAST_NAME) " +
+						  "VALUES ('" + event.getHost().getEmail() + "', '" + event.getHost().getFirstName() + "', '" + event.getHost().getLastName() + "')";
+				
+					stmt.executeUpdate(sql);
+				}
 			}
 			
 			sql = "";
 			
 			if (event.getHost().getAction().trim().equalsIgnoreCase("A")) {
 				sql = "INSERT INTO USR_EVENT " +
-					  "VALUES ((SELECT USR_ID FROM USR WHERE EMAIL = '" + event.getHost().getEmail() + "'), " + event.getID() + ", 'H'";
+					  "VALUES ((SELECT USR_ID FROM USR WHERE EMAIL = '" + event.getHost().getEmail() + "'), " + event.getID() + ", 'H')";
 			}
 			else if (event.getHost().getAction().trim().equalsIgnoreCase("D")) {
 				sql = "DELETE USR_EVENT " +
@@ -294,18 +299,24 @@ public class DataManager {
 			sql = "";
 			
 			for (Invitee invitee : event.getInvitees()) {
-				sql = "IF NOT EXISTS (SELECT USR_ID FROM USR WHERE EMAIL = '" + invitee.getEmail() + "') THEN " +
-					  "  INSERT INTO USR (EMAIL, FIRST_NAME, LAST_NAME) " +
-					  "  VALUES ('" + invitee.getEmail() + "', '" + invitee.getFirstName() + "', '" + invitee.getLastName() + "') " +
-					  "END IF";
+				sql = "SELECT USR_ID " + 
+					  "FROM USR " +
+					  "WHERE EMAIL = '" + invitee.getEmail() + "'";
+					
+				ResultSet rs = stmt.executeQuery(sql);
 				
-				stmt.executeUpdate(sql);
+				if (rs.next()) {
+					sql = "INSERT INTO USR (EMAIL, FIRST_NAME, LAST_NAME) " +
+						  "VALUES ('" + invitee.getEmail() + "', '" + invitee.getFirstName() + "', '" + invitee.getLastName() + "')";
+				
+					stmt.executeUpdate(sql);
+				}
 				
 				sql = "";
 				
 				if (invitee.getAction().trim().equalsIgnoreCase("A")) {
 					sql = "INSERT INTO USR_EVENT " +
-						  "VALUES ((SELECT USR_ID FROM USR WHERE EMAIL = '" + invitee.getEmail() + "'), " + event.getID() + ", 'I'";
+						  "VALUES ((SELECT USR_ID FROM USR WHERE EMAIL = '" + invitee.getEmail() + "'), " + event.getID() + ", 'I')";
 				}
 				else if (event.getHost().getAction().trim().equalsIgnoreCase("D")) {
 					sql = "DELETE USR_EVENT " +
