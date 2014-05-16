@@ -270,7 +270,7 @@ public class DataManager {
 			if (event.getHost() != null) {
 				sql = "IF NOT EXISTS (SELECT USR_ID FROM USR WHERE EMAIL = '" + event.getHost().getEmail() + "') THEN " +
 					  "  INSERT INTO USR (EMAIL, FIRST_NAME, LAST_NAME) " +
-					  "  VALUES ('" + event.getHost().getEmail() + "', " + event.getHost().getFirstName() + "' " + event.getHost().getLastName() + "') " +
+					  "  VALUES ('" + event.getHost().getEmail() + "', '" + event.getHost().getFirstName() + "', '" + event.getHost().getLastName() + "') " +
 					  "END IF";
 				
 				stmt.executeUpdate(sql);
@@ -296,7 +296,7 @@ public class DataManager {
 			for (Invitee invitee : event.getInvitees()) {
 				sql = "IF NOT EXISTS (SELECT USR_ID FROM USR WHERE EMAIL = '" + invitee.getEmail() + "') THEN " +
 					  "  INSERT INTO USR (EMAIL, FIRST_NAME, LAST_NAME) " +
-					  "  VALUES ('" + invitee.getEmail() + "', " + invitee.getFirstName() + "' " + invitee.getLastName() + "') " +
+					  "  VALUES ('" + invitee.getEmail() + "', '" + invitee.getFirstName() + "', '" + invitee.getLastName() + "') " +
 					  "END IF";
 				
 				stmt.executeUpdate(sql);
