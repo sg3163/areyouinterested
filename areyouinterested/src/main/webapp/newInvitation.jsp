@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="selectize/normalize.css">
     <link rel="stylesheet" href="selectize/css/stylesheet.css">
     <link rel="stylesheet" href="areyouinterested.css">
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="jquery-ui/jquery-ui.css">
     <script src="jquery/jquery-2.1.0.min.js"></script>
     <script src="jquery-ui/jquery-ui.js"></script>
     <script src="selectize/dist/js/standalone/selectize.js"></script>
