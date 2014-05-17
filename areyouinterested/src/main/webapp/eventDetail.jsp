@@ -63,7 +63,7 @@ JSONArray movies = (JSONArray) json.get("movies");
 <body>
 
 <% 
-	Event event = DataManager.getEvent("21"); 
+	Event event = DataManager.getEvent(request.getParameter("eventid")); 
 	JSONObject movie = null;
 	
 	if (event.getType().equalsIgnoreCase("M")) {
@@ -173,7 +173,7 @@ JSONArray movies = (JSONArray) json.get("movies");
 		if (invitee.getStatus().equalsIgnoreCase("I")) { 
 %>
 <%
-	if (invitee.getEmail().trim().equalsIgnoreCase("jensen@email.com")) {
+	if (invitee.getEmail().trim().equalsIgnoreCase(request.getParameter("email"))) {
 %>
 <table cellspacing="0" cellpadding="0" table-width="fixed" width="100%">
 <tr>
@@ -184,7 +184,7 @@ JSONArray movies = (JSONArray) json.get("movies");
 <FORM action="UpdateStatus.do" NAME="form1" METHOD="POST">
     <INPUT TYPE="HIDDEN" NAME="buttonName">
     <input type="hidden" name="UserID" value="<%= invitee.getID() %>">
-    <input type="hidden" name="EventID" value="21">
+    <input type="hidden" name="EventID" value='request.getParameter("eventid")'>
     <INPUT TYPE="BUTTON" class="button-class" VALUE="accept" ONCLICK="acceptOnClick()">
     <INPUT TYPE="BUTTON" class="button-class" VALUE="reject" ONCLICK="rejectOnClick()">
 </FORM>

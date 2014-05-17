@@ -100,7 +100,7 @@
 		int maxLength = (hostList.size()>inviteList.size()?hostList.size():inviteList.size());
 		for(int i=0;i<maxLength;i++){%>
 		<tr>
-			<td><a href="eventDetail.jsp?eventid=<%=(hostList.size()>i?hostList.get(i).getID():null) %>"><%=(hostList.size()>i?hostList.get(i).getTitle():"") %></a></td><td><a href="eventDetail.jsp?eventid=<%=(inviteList.size()>i?inviteList.get(i).getID():null) %>"><%=(inviteList.size()>i?inviteList.get(i).getTitle():"")%></a></td>
+			<td><a href='eventDetail.jsp?eventid=<%=(hostList.size()>i?hostList.get(i).getID():null)%>&email=<%request.getParameter("email");%>'><%=(hostList.size()>i?hostList.get(i).getTitle():"") %></a></td><td><a href='eventDetail.jsp?eventid=<%=(inviteList.size()>i?inviteList.get(i).getID():null)%>&email=<%request.getParameter("email");%>'><%=(inviteList.size()>i?inviteList.get(i).getTitle():"")%></a></td>
 		</tr>
 		<%}%>
 	</table>
