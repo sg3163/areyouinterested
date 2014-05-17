@@ -36,14 +36,54 @@
 			    FB.getLoginStatus(updateStatusCallback);
 			  });
 			  
-			  $("#sendInviteBtn").click(function() { 
+			  $("#sendInviteBtn").click(function() {
+				  
+			//	  alert(window.location.href); 
+				  
+				  var title = $('#select-movie')[0].value;
+				  if(!title) {
+					  alert("Please select Movie");
+					  return false;
+				  }
+				  
+				  var dateTime = $("#datepicker")[0].value;
+				  if(!dateTime) {
+					  alert("Please select Date");
+					  return false;
+				  }
+				  
+				  var description = $("#description")[0].value;
+				  var invitees = [];
+				  
+				  var $select = $('#select-to').selectize();
+				  var selectize = $select[0].selectize;
+				  var selectedValues = selectize.getValue();
+				  
+				  for(var i=0;i<selectedValues.length;i++) {
+					  invitees[i] = {id:"-1", "email":selectedValues[i], "firstName":selectize.getItem(selectedValues[i])[0].innerText, action: "A"};
+				  }
+				  
+				  if(!invitees || invitees.length <1) {
+					  alert("Please select Invitees");
+					  return false;
+				  }
+				  
+			//	  var firstSelection = selectize.getItem(selectedValues[0]);
+				  
+			//	  "invitees": [{"email":"457456", "firstName":"harsha345"},{"email":"8645", "firstName":"machhha"} ]
+				  
+				  var data = {id:"-1","type": "M", "title": title, "dateTime": dateTime, "description" : description,
+						  		action: "A", "host" :{id:"-1","email":userFacebookId, "firstName": firstName, "lastName":lastName, action: "A"},
+						  		 "invitees":invitees}
+				  
 					$.post("saveInvitation",
 							  {
-							    data:JSON.stringify({"type": "M","title": "testing","user": {"email":"33453535", "firstName":"harsha testing"},"invitees": [{"email":"457456", "firstName":"harsha345"},{"email":"8645", "firstName":"machhha"} ]}),
+							    data:JSON.stringify(data),
 							    city:"Duckburg"
 							  },
 							  function(data,status){
-							    alert("Data: " + data + "\nStatus: " + status);
+								alert("Event Saved Successfully");
+								window.location.replace("index.jsp");
 					});
 				});
 			  
@@ -55,9 +95,9 @@
 			alert("Button Clicked")
 		});*/
 		
-		var userFacebookId = <%=request.getParameter("fbid")%>
-		var firstName = <%=request.getParameter("firstName")%>
-		var LastName = <%=request.getParameter("lastName")%>
+		var userFacebookId = <%=request.getParameter("fbid")%>;
+		var firstName = "<%=request.getParameter("firstName")%>";
+		var lastName = <%=request.getParameter("lastName")%>;
 		
 		var friendsArr = [];
 		
@@ -87,7 +127,7 @@
 		    FB.api('/me/friends', function(response) {
 		        if(response.data) {
 		            $.each(response.data,function(index,friend) {
-		            	friendsArr[index] = {name: friend.name};
+		            	friendsArr[index] = {id: friend.id, name: friend.name};
 		        //        alert(friend.name + ' has id:' + friend.id);
 		            });
 		            initSelectize();
@@ -101,7 +141,7 @@
 			$('#select-to').selectize({
 				persist: false,
 				maxItems: null,
-				valueField: 'name',
+				valueField: 'id',
 				labelField: 'name',
 				searchField: ['name'],
 				sortField: [
@@ -157,13 +197,13 @@
 			</div>
 			  </div>
 			  <div class="col-lg-4 col-md-4 col-sm-6 col-xs-10">
-				<input type="text" id="datepicker">
+				<input id="datepicker" type="text">
 			  </div>
 		</div>
 		<div class="row" height="300">
 			<div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
 				
-			</div><textarea class="form-control" rows="5"></textarea>
+			</div><textarea id="description" class="form-control" rows="5"></textarea>
 		</div>
 		<div class="row">
 			<div class="col-lg-2 col-md-3 col-sm-4 col-xs-8">
