@@ -38,6 +38,8 @@
 			  
 			  $("#sendInviteBtn").click(function() {
 				  
+			//	  alert(window.location.href); 
+				  
 				  var title = $('#select-movie')[0].value;
 				  if(!title) {
 					  alert("Please select Movie");
@@ -80,7 +82,8 @@
 							    city:"Duckburg"
 							  },
 							  function(data,status){
-							    alert("Data: " + data + "\nStatus: " + status);
+								alert("Event Saved Successfully");
+								window.location.replace("index.jsp");
 					});
 				});
 			  
