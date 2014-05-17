@@ -28,5 +28,20 @@
 <br>
 <% } %>
 
+<%
+	Event e = new Event(-1, "M", "save event test", "my location", "my date time", "save event test", "A");
+	User h = new User(-1, "savetest@email.com", "save", "test", "A");
+	e.setHost(h);
+	Invitee i1 = new Invitee(-1, "invitee1@email.com", "invitee", "1", "A");
+	Invitee i2 = new Invitee(-1, "invitee2@email.com", "invitee", "2", "A");
+	Invitee i3 = new Invitee(-1, "invitee3@email.com", "invitee", "3", "A");
+	e.addInvitee(i1);
+	e.addInvitee(i2);
+	e.addInvitee(i3);
+	
+	DataManager.saveEvent(e);
+
+%>
+
 </body>
 </html>

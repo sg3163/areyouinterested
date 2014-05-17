@@ -16,7 +16,7 @@ public class DataManager {
 		try {
 			OracleDataSource ods = new OracleDataSource();
 			ods.setURL(connect_string);
-			conn = ods.getConnection();		
+			conn = ods.getConnection();	
 			Statement stmt = conn.createStatement();
 			String sql = "SELECT e.Event_ID, e.Event_Type, e.Title, e.Location, e.Date_Time, e.Description " +
 						 "FROM Usr u " +
@@ -27,10 +27,17 @@ public class DataManager {
 			ResultSet rs = stmt.executeQuery(sql);
 			
 			while (rs.next()) {
-				Event event = new Event(Integer.parseInt(rs.getString("Event_ID").trim()), rs.getString("Event_Type").trim(), rs.getString("Title").trim(), rs.getString("Location").trim(), rs.getString("Date_Time").trim(), rs.getString("Description").trim(), "");
+				int eventID = (rs.getString("Event_ID") != null) ? Integer.parseInt(rs.getString("Event_ID").trim()) : -1;
+				String eventType = (rs.getString("Event_Type") != null) ? rs.getString("Event_Type").trim() : "";
+				String title = (rs.getString("Title") != null) ? rs.getString("Title").trim() : "";
+				String location = (rs.getString("Location") != null) ? rs.getString("Location").trim() : "";
+				String dateTime = (rs.getString("Date_Time") != null) ? rs.getString("Date_Time").trim() : "";
+				String description = (rs.getString("Description") != null) ? rs.getString("Description").trim() : "";
+				
+				Event event = new Event(eventID, eventType, title, location, dateTime, description, "");
 				events.add(event);
 			}
-			
+		
 			for (Event event : events) {
 				sql = "SELECT u.Usr_ID, u.Email, u.First_Name, u.Last_Name, x.Status " +
 					  "FROM Usr u " +
@@ -40,12 +47,18 @@ public class DataManager {
 				rs = stmt.executeQuery(sql);
 				
 				while (rs.next()) {
-					if (rs.getString("Status").trim().equalsIgnoreCase("H")) {
-						User host = new User(Integer.parseInt(rs.getString("Usr_ID").trim()), rs.getString("Email").trim(), rs.getString("First_Name").trim(), rs.getString("Last_Name").trim(), "");
+					int userID = (rs.getString("Usr_ID").trim() != null) ? Integer.parseInt(rs.getString("Usr_ID").trim()) : -1;
+					String emailAddr = (rs.getString("Email") != null) ? rs.getString("Email").trim() : "";
+					String firstName = (rs.getString("First_Name") != null) ? rs.getString("First_Name").trim() : "";
+					String lastName = (rs.getString("Last_Name") != null) ? rs.getString("Last_Name").trim() : "";
+					String status = (rs.getString("Status") != null) ? rs.getString("Status").trim() : "";
+					
+					if (status.equalsIgnoreCase("H")) {
+						User host = new User(userID, emailAddr, firstName, lastName, "");
 						event.setHost(host);
 					}
 					else {
-						Invitee invitee = new Invitee(Integer.parseInt(rs.getString("Usr_ID").trim()), rs.getString("Email").trim(), rs.getString("First_Name").trim(), rs.getString("Last_Name").trim(), rs.getString("Status").trim(), "");
+						Invitee invitee = new Invitee(userID, emailAddr, firstName, lastName, status);
 						event.addInvitee(invitee);
 					}
 				}
@@ -82,7 +95,14 @@ public class DataManager {
 			ResultSet rs = stmt.executeQuery(sql);
 			
 			while (rs.next()) {
-				Event event = new Event(Integer.parseInt(rs.getString("Event_ID").trim()), rs.getString("Event_Type").trim(), rs.getString("Title").trim(), rs.getString("Location").trim(), rs.getString("Date_Time").trim(), rs.getString("Description").trim(), "");
+				int eventID = (rs.getString("Event_ID") != null) ? Integer.parseInt(rs.getString("Event_ID").trim()) : -1;
+				String eventType = (rs.getString("Event_Type") != null) ? rs.getString("Event_Type").trim() : "";
+				String title = (rs.getString("Title") != null) ? rs.getString("Title").trim() : "";
+				String location = (rs.getString("Location") != null) ? rs.getString("Location").trim() : "";
+				String dateTime = (rs.getString("Date_Time") != null) ? rs.getString("Date_Time").trim() : "";
+				String description = (rs.getString("Description") != null) ? rs.getString("Description").trim() : "";
+				
+				Event event = new Event(eventID, eventType, title, location, dateTime, description, "");
 				events.add(event);
 			}
 			
@@ -95,12 +115,18 @@ public class DataManager {
 				rs = stmt.executeQuery(sql);
 				
 				while (rs.next()) {
-					if (rs.getString("Status").trim().equalsIgnoreCase("H")) {
-						User host = new User(Integer.parseInt(rs.getString("Usr_ID").trim()), rs.getString("Email").trim(), rs.getString("First_Name").trim(), rs.getString("Last_Name").trim(), "");
+					int userID = (rs.getString("Usr_ID").trim() != null) ? Integer.parseInt(rs.getString("Usr_ID").trim()) : -1;
+					String emailAddr = (rs.getString("Email") != null) ? rs.getString("Email").trim() : "";
+					String firstName = (rs.getString("First_Name") != null) ? rs.getString("First_Name").trim() : "";
+					String lastName = (rs.getString("Last_Name") != null) ? rs.getString("Last_Name").trim() : "";
+					String status = (rs.getString("Status") != null) ? rs.getString("Status").trim() : "";
+					
+					if (status.equalsIgnoreCase("H")) {
+						User host = new User(userID, emailAddr, firstName, lastName, "");
 						event.setHost(host);
 					}
 					else {
-						Invitee invitee = new Invitee(Integer.parseInt(rs.getString("Usr_ID").trim()), rs.getString("Email").trim(), rs.getString("First_Name").trim(), rs.getString("Last_Name").trim(), rs.getString("Status").trim(), "");
+						Invitee invitee = new Invitee(userID, emailAddr, firstName, lastName, status);
 						event.addInvitee(invitee);
 					}
 				}
@@ -137,7 +163,14 @@ public class DataManager {
 			ResultSet rs = stmt.executeQuery(sql);
 			
 			while (rs.next()) {
-				Event event = new Event(Integer.parseInt(rs.getString("Event_ID").trim()), rs.getString("Event_Type").trim(), rs.getString("Title").trim(), rs.getString("Location").trim(), rs.getString("Date_Time").trim(), rs.getString("Description").trim(), "");
+				int eventID = (rs.getString("Event_ID") != null) ? Integer.parseInt(rs.getString("Event_ID").trim()) : -1;
+				String eventType = (rs.getString("Event_Type") != null) ? rs.getString("Event_Type").trim() : "";
+				String title = (rs.getString("Title") != null) ? rs.getString("Title").trim() : "";
+				String location = (rs.getString("Location") != null) ? rs.getString("Location").trim() : "";
+				String dateTime = (rs.getString("Date_Time") != null) ? rs.getString("Date_Time").trim() : "";
+				String description = (rs.getString("Description") != null) ? rs.getString("Description").trim() : "";
+				
+				Event event = new Event(eventID, eventType, title, location, dateTime, description, "");
 				events.add(event);
 			}
 			
@@ -150,12 +183,18 @@ public class DataManager {
 				rs = stmt.executeQuery(sql);
 				
 				while (rs.next()) {
-					if (rs.getString("Status").trim().equalsIgnoreCase("H")) {
-						User host = new User(Integer.parseInt(rs.getString("Usr_ID").trim()), rs.getString("Email").trim(), rs.getString("First_Name").trim(), rs.getString("Last_Name").trim(), "");
+					int userID = (rs.getString("Usr_ID").trim() != null) ? Integer.parseInt(rs.getString("Usr_ID").trim()) : -1;
+					String emailAddr = (rs.getString("Email") != null) ? rs.getString("Email").trim() : "";
+					String firstName = (rs.getString("First_Name") != null) ? rs.getString("First_Name").trim() : "";
+					String lastName = (rs.getString("Last_Name") != null) ? rs.getString("Last_Name").trim() : "";
+					String status = (rs.getString("Status") != null) ? rs.getString("Status").trim() : "";
+					
+					if (status.equalsIgnoreCase("H")) {
+						User host = new User(userID, emailAddr, firstName, lastName, "");
 						event.setHost(host);
 					}
 					else {
-						Invitee invitee = new Invitee(Integer.parseInt(rs.getString("Usr_ID").trim()), rs.getString("Email").trim(), rs.getString("First_Name").trim(), rs.getString("Last_Name").trim(), rs.getString("Status").trim(), "");
+						Invitee invitee = new Invitee(userID, emailAddr, firstName, lastName, status);
 						event.addInvitee(invitee);
 					}
 				}
@@ -188,7 +227,15 @@ public class DataManager {
 			
 			ResultSet rs = stmt.executeQuery(sql);
 			rs.next();
-			event = new Event(Integer.parseInt(rs.getString("Event_ID").trim()), rs.getString("Event_Type").trim(), rs.getString("Title").trim(), rs.getString("Location").trim(), rs.getString("Date_Time").trim(), rs.getString("Description").trim(), "");
+			
+			int eventID2 = (rs.getString("Event_ID") != null) ? Integer.parseInt(rs.getString("Event_ID").trim()) : -1;
+			String eventType = (rs.getString("Event_Type") != null) ? rs.getString("Event_Type").trim() : "";
+			String title = (rs.getString("Title") != null) ? rs.getString("Title").trim() : "";
+			String location = (rs.getString("Location") != null) ? rs.getString("Location").trim() : "";
+			String dateTime = (rs.getString("Date_Time") != null) ? rs.getString("Date_Time").trim() : "";
+			String description = (rs.getString("Description") != null) ? rs.getString("Description").trim() : "";
+			
+			event = new Event(eventID2, eventType, title, location, dateTime, description, "");
 			
 			sql = "SELECT u.Usr_ID, u.Email, u.First_Name, u.Last_Name, x.Status " +
 				  "FROM Usr u " +
@@ -198,12 +245,18 @@ public class DataManager {
 			rs = stmt.executeQuery(sql);
 				
 			while (rs.next()) {
-				if (rs.getString("Status").trim().equalsIgnoreCase("H")) {
-					User host = new User(Integer.parseInt(rs.getString("Usr_ID").trim()), rs.getString("Email").trim(), rs.getString("First_Name").trim(), rs.getString("Last_Name").trim(), "");
+				int userID = (rs.getString("Usr_ID").trim() != null) ? Integer.parseInt(rs.getString("Usr_ID").trim()) : -1;
+				String emailAddr = (rs.getString("Email") != null) ? rs.getString("Email").trim() : "";
+				String firstName = (rs.getString("First_Name") != null) ? rs.getString("First_Name").trim() : "";
+				String lastName = (rs.getString("Last_Name") != null) ? rs.getString("Last_Name").trim() : "";
+				String status = (rs.getString("Status") != null) ? rs.getString("Status").trim() : "";
+				
+				if (status.equalsIgnoreCase("H")) {
+					User host = new User(userID, emailAddr, firstName, lastName, "");
 					event.setHost(host);
 				}
 				else {
-					Invitee invitee = new Invitee(Integer.parseInt(rs.getString("Usr_ID").trim()), rs.getString("Email").trim(), rs.getString("First_Name").trim(), rs.getString("Last_Name").trim(), rs.getString("Status").trim(), "");
+					Invitee invitee = new Invitee(userID, emailAddr, firstName, lastName, status);
 					event.addInvitee(invitee);
 				}
 			}
@@ -256,12 +309,12 @@ public class DataManager {
 			sql = "";
 			
 			if (event.getAction().trim().equalsIgnoreCase("A")) {
-				sql = "SELECT MAX(Event_ID) " +
+				sql = "SELECT MAX(Event_ID) AS Event_ID " +
 					  "FROM EVENT";
 				
 				ResultSet rs = stmt.executeQuery(sql);
 				rs.next();
-				event.setID(rs.getInt("Event_ID"));
+				event.setID(Integer.parseInt(rs.getString("Event_ID")));
 			}
 			
 			sql = "";
@@ -269,11 +322,10 @@ public class DataManager {
 			if (event.getHost() != null) {
 				sql = "SELECT USR_ID " + 
 					  "FROM USR " +
-					  "WHERE EMAIL = '" + event.getHost().getEmail() + "'";
+					  "WHERE EMAIL = '" + event.getHost().getEmail().trim() + "'";
 				
 				ResultSet rs = stmt.executeQuery(sql);
-				
-				if (rs.next()) {
+				if (!rs.next()) {
 					sql = "INSERT INTO USR (EMAIL, FIRST_NAME, LAST_NAME) " +
 						  "VALUES ('" + event.getHost().getEmail() + "', '" + event.getHost().getFirstName() + "', '" + event.getHost().getLastName() + "')";
 				
@@ -289,7 +341,7 @@ public class DataManager {
 			}
 			else if (event.getHost().getAction().trim().equalsIgnoreCase("D")) {
 				sql = "DELETE USR_EVENT " +
-					  "WHERE USR_ID = " + event.getHost().getID() + " " +
+					  "WHERE USR_ID = " + event.getHost().getID() +
 					  "  AND EVENT_ID = " + event.getID();
 			}
 			
@@ -301,11 +353,10 @@ public class DataManager {
 			for (Invitee invitee : event.getInvitees()) {
 				sql = "SELECT USR_ID " + 
 					  "FROM USR " +
-					  "WHERE EMAIL = '" + invitee.getEmail() + "'";
+					  "WHERE EMAIL = '" + invitee.getEmail().trim() + "'";
 					
 				ResultSet rs = stmt.executeQuery(sql);
-				
-				if (rs.next()) {
+				if (!rs.next()) {
 					sql = "INSERT INTO USR (EMAIL, FIRST_NAME, LAST_NAME) " +
 						  "VALUES ('" + invitee.getEmail() + "', '" + invitee.getFirstName() + "', '" + invitee.getLastName() + "')";
 				
@@ -320,7 +371,7 @@ public class DataManager {
 				}
 				else if (event.getHost().getAction().trim().equalsIgnoreCase("D")) {
 					sql = "DELETE USR_EVENT " +
-						  "WHERE USR_ID = " + invitee.getID() + " " +
+						  "WHERE USR_ID = " + invitee.getID() +
 						  "  AND EVENT_ID = " + event.getID();
 				}
 				
@@ -350,7 +401,7 @@ public class DataManager {
 			Statement stmt = conn.createStatement();
 			String sql = "UPDATE USR_EVENT " +
 						 "SET Status = '" + status + "' " +
-						 "WHERE USR_ID = " + userID + " "+
+						 "WHERE USR_ID = " + userID +
 						 "  AND EVENT_ID = " + eventID;
 			stmt.executeUpdate(sql);
 		}
