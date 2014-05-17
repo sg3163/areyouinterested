@@ -58,7 +58,7 @@
 				  var selectedValues = selectize.getValue();
 				  
 				  for(var i=0;i<selectedValues.length;i++) {
-					  invitees[i] = {"email":selectedValues[0], "firstName":selectize.getItem(selectedValues[i])[0].innerText};
+					  invitees[i] = {id:"-1", "email":selectedValues[0], "firstName":selectize.getItem(selectedValues[i])[0].innerText, action: "A"};
 				  }
 				  
 				  if(!invitees || invitees.length <1) {
@@ -70,8 +70,8 @@
 				  
 			//	  "invitees": [{"email":"457456", "firstName":"harsha345"},{"email":"8645", "firstName":"machhha"} ]
 				  
-				  var data = {"type": "M", "title": title, "dateTime": dateTime, "description" : description,
-						  		action: "A", "host" :{"email":userFacebookId, "firstName": firstName, "lastName":lastName },
+				  var data = {id:"-1","type": "M", "title": title, "dateTime": dateTime, "description" : description,
+						  		action: "A", "host" :{id:"-1","email":userFacebookId, "firstName": firstName, "lastName":lastName, action: "A"},
 						  		 "invitees":invitees}
 				  
 					$.post("saveInvitation",
