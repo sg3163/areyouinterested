@@ -60,7 +60,7 @@
 				  var selectedValues = selectize.getValue();
 				  
 				  for(var i=0;i<selectedValues.length;i++) {
-					  invitees[i] = {id:"-1", "email":selectedValues[0], "firstName":selectize.getItem(selectedValues[i])[0].innerText, action: "A"};
+					  invitees[i] = {id:"-1", "email":selectedValues[i], "firstName":selectize.getItem(selectedValues[i])[0].innerText, action: "A"};
 				  }
 				  
 				  if(!invitees || invitees.length <1) {
