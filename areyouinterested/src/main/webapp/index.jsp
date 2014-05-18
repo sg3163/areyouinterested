@@ -100,10 +100,10 @@
 		int maxLength = (hostList.size()>inviteList.size()?hostList.size():inviteList.size());
 		for(int i=0;i<maxLength;i++){%>
 		<tr>
-			<td><a href='eventDetail.jsp?eventid=<%=(hostList.size()>i?hostList.get(i).getID():null)%>&email=<%request.getParameter("email");%>'><%=(hostList.size()>i?hostList.get(i).getTitle():"") %></a></td><td><a href='eventDetail.jsp?eventid=<%=(inviteList.size()>i?inviteList.get(i).getID():null)%>&email=<%request.getParameter("email");%>'><%=(inviteList.size()>i?inviteList.get(i).getTitle():"")%></a></td>
+			<td><a href='eventDetail.jsp?eventid=<%=(hostList.size()>i?hostList.get(i).getID():null)%>&email=<%=request.getParameter("email")%>'><%=(hostList.size()>i?hostList.get(i).getTitle():"") %></a></td><td><a href='eventDetail.jsp?eventid=<%=(inviteList.size()>i?inviteList.get(i).getID():null)%>&email=<%=request.getParameter("email")%>'><%=(inviteList.size()>i?inviteList.get(i).getTitle():"")%></a></td>
 		</tr>
 		<%}%>
 	</table>
-	<a href='newInvitation.jsp?email=<%=request.getParameter("email")%>&fbid=<%=request.getParameter("fbid")%>&firstName=<%=request.getParameter("name") %>'>Create A New Event</a>
+	<a href='newInvitation.jsp?email=<%=request.getParameter("email")%>&firstName=<%=request.getParameter("name") %>'>Create A New Event</a>
 </body>
 </html>
