@@ -50,7 +50,7 @@
 
 		    if(window.url("?email")==null){
 		    	FB.api('/me', function (response) {
-					location.href = "index.jsp?email="+response.email+"&fbid="+response.id+"&name="+response.name;
+					location.href = "index.jsp?email="+response.id+"&name="+response.name;
 				});
 		    }
 
