@@ -38,8 +38,8 @@ public class NewInvitationServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		RequestDispatcher view = request.getRequestDispatcher("eventDetail.jsp");
-		view.forward(request, response);
+	//	RequestDispatcher view = request.getRequestDispatcher("eventDetail.jsp");
+	//	view.forward(request, response);
 	}
 
 }
