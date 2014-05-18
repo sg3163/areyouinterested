@@ -16,7 +16,7 @@
 <title>Are You Interested</title>
 <link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="areyouinterested.css">
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" href="jquery-ui/jquery-ui.css">
 <script src="jquery/jquery-2.1.0.js"></script>
 
 <script src="jquery/url.js"></script>
