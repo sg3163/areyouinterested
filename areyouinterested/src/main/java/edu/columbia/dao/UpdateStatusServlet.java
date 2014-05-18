@@ -34,7 +34,7 @@ public class UpdateStatusServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		RequestDispatcher view = request.getRequestDispatcher("eventDetail.jsp");
+		RequestDispatcher view = request.getRequestDispatcher("index.jsp");
 		view.forward(request, response);
 	}
 

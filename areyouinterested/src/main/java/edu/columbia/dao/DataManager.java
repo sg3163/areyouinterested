@@ -48,7 +48,7 @@ public class DataManager {
 				rs = stmt.executeQuery(sql);
 				
 				while (rs.next()) {
-					int userID = (rs.getString("Usr_ID").trim() != null) ? Integer.parseInt(rs.getString("Usr_ID").trim()) : -1;
+					int userID = (rs.getString("Usr_ID") != null) ? Integer.parseInt(rs.getString("Usr_ID").trim()) : -1;
 					String emailAddr = (rs.getString("Email") != null) ? rs.getString("Email").trim() : "";
 					String firstName = (rs.getString("First_Name") != null) ? rs.getString("First_Name").trim() : "";
 					String lastName = (rs.getString("Last_Name") != null) ? rs.getString("Last_Name").trim() : "";
@@ -59,7 +59,7 @@ public class DataManager {
 						event.setHost(host);
 					}
 					else {
-						Invitee invitee = new Invitee(userID, emailAddr, firstName, lastName, status);
+						Invitee invitee = new Invitee(userID, emailAddr, firstName, lastName, status, "");
 						event.addInvitee(invitee);
 					}
 				}
@@ -120,7 +120,7 @@ public class DataManager {
 				rs = stmt.executeQuery(sql);
 				
 				while (rs.next()) {
-					int userID = (rs.getString("Usr_ID").trim() != null) ? Integer.parseInt(rs.getString("Usr_ID").trim()) : -1;
+					int userID = (rs.getString("Usr_ID") != null) ? Integer.parseInt(rs.getString("Usr_ID").trim()) : -1;
 					String emailAddr = (rs.getString("Email") != null) ? rs.getString("Email").trim() : "";
 					String firstName = (rs.getString("First_Name") != null) ? rs.getString("First_Name").trim() : "";
 					String lastName = (rs.getString("Last_Name") != null) ? rs.getString("Last_Name").trim() : "";
@@ -131,7 +131,7 @@ public class DataManager {
 						event.setHost(host);
 					}
 					else {
-						Invitee invitee = new Invitee(userID, emailAddr, firstName, lastName, status);
+						Invitee invitee = new Invitee(userID, emailAddr, firstName, lastName, status, "");
 						event.addInvitee(invitee);
 					}
 				}
@@ -192,7 +192,7 @@ public class DataManager {
 				rs = stmt.executeQuery(sql);
 				
 				while (rs.next()) {
-					int userID = (rs.getString("Usr_ID").trim() != null) ? Integer.parseInt(rs.getString("Usr_ID").trim()) : -1;
+					int userID = (rs.getString("Usr_ID") != null) ? Integer.parseInt(rs.getString("Usr_ID").trim()) : -1;
 					String emailAddr = (rs.getString("Email") != null) ? rs.getString("Email").trim() : "";
 					String firstName = (rs.getString("First_Name") != null) ? rs.getString("First_Name").trim() : "";
 					String lastName = (rs.getString("Last_Name") != null) ? rs.getString("Last_Name").trim() : "";
@@ -203,7 +203,7 @@ public class DataManager {
 						event.setHost(host);
 					}
 					else {
-						Invitee invitee = new Invitee(userID, emailAddr, firstName, lastName, status);
+						Invitee invitee = new Invitee(userID, emailAddr, firstName, lastName, status, "");
 						event.addInvitee(invitee);
 					}
 				}
@@ -269,7 +269,7 @@ public class DataManager {
 					event.setHost(host);
 				}
 				else {
-					Invitee invitee = new Invitee(userID, emailAddr, firstName, lastName, status);
+					Invitee invitee = new Invitee(userID, emailAddr, firstName, lastName, status, "");
 					event.addInvitee(invitee);
 				}
 			}

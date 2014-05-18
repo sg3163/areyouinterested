@@ -172,6 +172,7 @@ JSONArray movies = (JSONArray) json.get("movies");
 	for (Invitee invitee : event.getInvitees()) { 
 		if (invitee.getStatus().equalsIgnoreCase("I")) { 
 %>
+
 <%
 	if (invitee.getEmail().trim().equalsIgnoreCase(request.getParameter("email"))) {
 %>
@@ -179,12 +180,13 @@ JSONArray movies = (JSONArray) json.get("movies");
 <tr>
 <td>
 <%= invitee.getFirstName() %> <%= invitee.getLastName() %>
+
 </td>
 <td>
 <FORM action="UpdateStatus.do" NAME="form1" METHOD="POST">
     <INPUT TYPE="HIDDEN" NAME="buttonName">
     <input type="hidden" name="UserID" value="<%= invitee.getID() %>">
-    <input type="hidden" name="EventID" value='request.getParameter("eventid")'>
+    <input type="hidden" name="EventID" value="<%= request.getParameter("eventid") %>">
     <INPUT TYPE="BUTTON" class="button-class" VALUE="accept" ONCLICK="acceptOnClick()">
     <INPUT TYPE="BUTTON" class="button-class" VALUE="reject" ONCLICK="rejectOnClick()">
 </FORM>
