@@ -242,9 +242,9 @@
 					load: function(query, callback) {
 						if (!query.length) return callback();
 						$.ajax({
-							url: 'http://api.rottentomatoes.com/api/public/v1.0/lists/movies/in_theaters.json',
+							url: 'http://www.essentialapps.us:8080/areyouinterested/rest/rottentomato/api',
 							type: 'GET',
-							dataType: 'jsonp',
+							dataType: 'json',
 							data: {
 								q: query,
 								page_limit: 10,
