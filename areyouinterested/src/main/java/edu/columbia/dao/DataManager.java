@@ -12,6 +12,7 @@ public class DataManager {
 	public static ArrayList<Event> getEvents(String email) throws SQLException {
 		ArrayList<Event> events = new ArrayList<Event>();
 		Connection conn = null;
+		ResultSet rs = null;
 		
 		try {
 			OracleDataSource ods = new OracleDataSource();
@@ -24,7 +25,7 @@ public class DataManager {
 						 "  INNER JOIN Event e ON x.Event_ID = e.Event_ID " +
 						 "WHERE u.Email = '" + email + "'";
 			
-			ResultSet rs = stmt.executeQuery(sql);
+			rs = stmt.executeQuery(sql);
 			
 			while (rs.next()) {
 				int eventID = (rs.getString("Event_ID") != null) ? Integer.parseInt(rs.getString("Event_ID").trim()) : -1;
@@ -71,6 +72,9 @@ public class DataManager {
 		{
 			if (conn != null)
 				conn.close();
+			
+			if (rs != null)
+				rs.close();
 		}
 		
 		return events;
@@ -79,6 +83,7 @@ public class DataManager {
 	public static ArrayList<Event> getHostingEvents(String email) throws SQLException {
 		ArrayList<Event> events = new ArrayList<Event>();
 		Connection conn = null;
+		ResultSet rs = null;
 		
 		try {
 			OracleDataSource ods = new OracleDataSource();
@@ -92,7 +97,7 @@ public class DataManager {
 						 "WHERE u.Email = '" + email + "' " +
 						 "  AND x.Status = 'H'";
 			
-			ResultSet rs = stmt.executeQuery(sql);
+			rs = stmt.executeQuery(sql);
 			
 			while (rs.next()) {
 				int eventID = (rs.getString("Event_ID") != null) ? Integer.parseInt(rs.getString("Event_ID").trim()) : -1;
@@ -139,6 +144,9 @@ public class DataManager {
 		{
 			if (conn != null)
 				conn.close();
+			
+			if (rs != null)
+				rs.close();
 		}
 		
 		return events;
@@ -147,6 +155,7 @@ public class DataManager {
 	public static ArrayList<Event> getInvitedEvents(String email) throws SQLException {
 		ArrayList<Event> events = new ArrayList<Event>();
 		Connection conn = null;
+		ResultSet rs = null;
 		
 		try {
 			OracleDataSource ods = new OracleDataSource();
@@ -160,7 +169,7 @@ public class DataManager {
 						 "WHERE u.Email = '" + email + "' " +
 						 "  AND x.Status != 'H'";
 			
-			ResultSet rs = stmt.executeQuery(sql);
+			rs = stmt.executeQuery(sql);
 			
 			while (rs.next()) {
 				int eventID = (rs.getString("Event_ID") != null) ? Integer.parseInt(rs.getString("Event_ID").trim()) : -1;
@@ -207,6 +216,9 @@ public class DataManager {
 		{
 			if (conn != null)
 				conn.close();
+			
+			if (rs != null)	
+				rs.close();
 		}
 		
 		return events;	
@@ -215,6 +227,7 @@ public class DataManager {
 	public static Event getEvent(String eventID) throws SQLException {
 		Event event = null;
 		Connection conn = null;
+		ResultSet rs = null;
 		
 		try {
 			OracleDataSource ods = new OracleDataSource();
@@ -225,7 +238,7 @@ public class DataManager {
 						 "FROM Event e " +
 						 "WHERE e.Event_ID = " + eventID;
 			
-			ResultSet rs = stmt.executeQuery(sql);
+			rs = stmt.executeQuery(sql);
 			rs.next();
 			
 			int eventID2 = (rs.getString("Event_ID") != null) ? Integer.parseInt(rs.getString("Event_ID").trim()) : -1;
@@ -268,6 +281,9 @@ public class DataManager {
 		{
 			if (conn != null)
 				conn.close();
+			
+			if (rs != null)
+				rs.close();
 		}
 		
 		return event;	
@@ -275,6 +291,7 @@ public class DataManager {
 	
 	public static void saveEvent(Event event) throws SQLException {
 		Connection conn = null;
+		ResultSet rs = null;
 		
 		try {
 			OracleDataSource ods = new OracleDataSource();
@@ -318,7 +335,7 @@ public class DataManager {
 				sql = "SELECT MAX(Event_ID) AS Event_ID " +
 					  "FROM EVENT";
 				
-				ResultSet rs = stmt.executeQuery(sql);
+				rs = stmt.executeQuery(sql);
 				rs.next();
 				event.setID(Integer.parseInt(rs.getString("Event_ID")));
 			}
@@ -330,7 +347,7 @@ public class DataManager {
 					  "FROM USR " +
 					  "WHERE EMAIL = '" + event.getHost().getEmail().trim() + "'";
 				
-				ResultSet rs = stmt.executeQuery(sql);
+				rs = stmt.executeQuery(sql);
 				if (!rs.next()) {
 					sql = "INSERT INTO USR (EMAIL, FIRST_NAME, LAST_NAME) " +
 						  "VALUES ('" + event.getHost().getEmail() + "', '" + event.getHost().getFirstName() + "', ";
@@ -347,7 +364,7 @@ public class DataManager {
 				sql = "SELECT USR_ID " + 
 					  "FROM USR " +
 					  "WHERE EMAIL = '" + event.getHost().getEmail().trim() + "'";
-				ResultSet rs = stmt.executeQuery(sql);
+				rs = stmt.executeQuery(sql);
 				rs.next();
 				String userID = rs.getString("USR_ID");
 				
@@ -370,7 +387,7 @@ public class DataManager {
 					  "FROM USR " +
 					  "WHERE EMAIL = '" + invitee.getEmail().trim() + "'";
 					
-				ResultSet rs = stmt.executeQuery(sql);
+				rs = stmt.executeQuery(sql);
 				if (!rs.next()) {
 					sql = "INSERT INTO USR (EMAIL, FIRST_NAME, LAST_NAME) " +
 						  "VALUES ('" + invitee.getEmail() + "', '" + invitee.getFirstName() + "', ";
@@ -386,9 +403,9 @@ public class DataManager {
 					sql = "SELECT USR_ID " + 
 						  "FROM USR " +
 						  "WHERE EMAIL = '" + invitee.getEmail().trim() + "'";
-					ResultSet rs1 = stmt.executeQuery(sql);
-					rs1.next();
-					String userID = rs1.getString("USR_ID");
+					rs = stmt.executeQuery(sql);
+					rs.next();
+					String userID = rs.getString("USR_ID");
 					
 					sql = "INSERT INTO USR_EVENT " +
 						  "VALUES (" + userID + ", " + event.getID() + ", 'I')";
@@ -412,6 +429,9 @@ public class DataManager {
 		{
 			if (conn != null)
 				conn.close();
+			
+			if (rs != null)
+				rs.close();
 		}
 	}
 	
