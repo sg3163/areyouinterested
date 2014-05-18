@@ -90,7 +90,7 @@
 <body>
 	<h1>Are You Interested?</h1>
 	<h2 >Welcome, <%=request.getParameter("name") %>!</h2>
-	<span><a href="movies.jsp">movies</a> | restaurants</span>	
+	<span><a href="movies.jsp">movies</a> | <a href="restaurant.jsp">restaurants</a></span>	
 	<table>
 		<tr>
 			<td><h3>My Events</h3></td><td><h3>Invitations</h3></td>

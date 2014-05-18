@@ -242,7 +242,7 @@
 					load: function(query, callback) {
 						if (!query.length) return callback();
 						$.ajax({
-							url: 'http://www.essentialapps.us:8080/areyouinterested/rest/rottentomato/api',
+							url: 'rest/rottentomato/api',
 							type: 'GET',
 							dataType: 'json',
 							data: {
